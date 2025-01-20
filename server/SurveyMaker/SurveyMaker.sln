@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyMaker.API", "src\SurveyMaker.API\SurveyMaker.API.csproj", "{A466808A-F6A3-426E-AE9A-7951AB2CE952}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{11314743-909B-4014-9655-0CDC7C27CB56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyMaker.Domain", "src\SurveyMaker.Domain\SurveyMaker.Domain.csproj", "{5B6E661F-BE75-412F-99B5-45493B80C3A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyMaker.Infrastructure", "src\SurveyMaker.Infrastructure\SurveyMaker.Infrastructure.csproj", "{9E180247-825D-41D3-9F84-337127511623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyMaker.Application", "src\SurveyMaker.Application\SurveyMaker.Application.csproj", "{03D8AD75-8C5E-4285-87BA-A8572BA9644B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A466808A-F6A3-426E-AE9A-7951AB2CE952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A466808A-F6A3-426E-AE9A-7951AB2CE952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A466808A-F6A3-426E-AE9A-7951AB2CE952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A466808A-F6A3-426E-AE9A-7951AB2CE952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6E661F-BE75-412F-99B5-45493B80C3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6E661F-BE75-412F-99B5-45493B80C3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6E661F-BE75-412F-99B5-45493B80C3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6E661F-BE75-412F-99B5-45493B80C3A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E180247-825D-41D3-9F84-337127511623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E180247-825D-41D3-9F84-337127511623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E180247-825D-41D3-9F84-337127511623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E180247-825D-41D3-9F84-337127511623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D8AD75-8C5E-4285-87BA-A8572BA9644B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D8AD75-8C5E-4285-87BA-A8572BA9644B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D8AD75-8C5E-4285-87BA-A8572BA9644B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D8AD75-8C5E-4285-87BA-A8572BA9644B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A466808A-F6A3-426E-AE9A-7951AB2CE952} = {11314743-909B-4014-9655-0CDC7C27CB56}
+		{5B6E661F-BE75-412F-99B5-45493B80C3A4} = {11314743-909B-4014-9655-0CDC7C27CB56}
+		{9E180247-825D-41D3-9F84-337127511623} = {11314743-909B-4014-9655-0CDC7C27CB56}
+		{03D8AD75-8C5E-4285-87BA-A8572BA9644B} = {11314743-909B-4014-9655-0CDC7C27CB56}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+name: survey-maker
+
+services:
+
+  # DB
+  smoker-db:
+    image: postgres:16.4
+    
+  # Accounts Service
+  smoker.api:
+      image: ${DOCKER_REGISTRY-}accountapi:latest
+      build:
+        context: ../
+        dockerfile: ./src/SurveyMaker.API/Dockerfile

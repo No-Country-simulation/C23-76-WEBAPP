@@ -1,0 +1,25 @@
+services:
+  smoker-db:
+    restart: always
+    environment:
+      - POSTGRES_USER=${ENV:-postgres}
+      - POSTGRES_PASSWORD=${ENV:-postgres}      
+      - POSTGRES_DB=${ENV:-SurveyMakerDb}
+    volumes:
+      - posgres_smaker:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  smoker.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SurveyMakerDb=Server=smoker-db;Port=5432;Database=${POSTGRES_DB:-SurveyMakerDb};User Id=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-postgres};Include Error Detail=true
+    depends_on:
+      - smoker-db
+    ports:
+      - "5001:8080"  
+    # volumes:
+    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+
+volumes:
+  posgres_smaker:

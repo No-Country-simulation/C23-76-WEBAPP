@@ -1,0 +1,10 @@
+
+# Visual Studio
+.vs/
+
+# LocalDb
+*/**/.db
+
+# C#
+*/**/bin
+*/**/obj
