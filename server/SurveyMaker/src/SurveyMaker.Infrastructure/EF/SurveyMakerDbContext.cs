@@ -28,6 +28,9 @@ namespace SurveyMaker.Infrastructure.EF
                 .HasForeignKey(x => x.SurveyId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Survey>()
+                .OwnsOne(x => x.Url);
+
             // Question
             builder.Entity<Question>()
                 .HasKey(x => x.Id);

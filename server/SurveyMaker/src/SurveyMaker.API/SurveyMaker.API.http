@@ -1,5 +1,5 @@
-@SurveyMaker.API_HostAddress = http://localhost:5001
-@AccessToken = CfDJ8N2VOELTeDlKnscwD3HokgrO-vojEMJ2RGO8Nt-8LsjOLXmOfhZcarMdVSWLFLxmt6tfgBaCTGGTzVGdo3Q9TZQeKOv_2Z58mV-aqAwZdvS4PQa1gjmt3vTrVTxN2swX8qKZr78f4NNGjsylyVflpEF8Z03Otpel9cuX2W0PJ5dn9G4gl-te09ovbHHNj5UdMJ8dGSjdxI2uOYAgtM9_J-MdIjg7dtYekgrNJ9mITQlR6Fq63sdNvhL3WQmuHLAlgFMu6rOZj8Lpqv13YPVP09QZC3dW6fBI3HVG5gZRmKClbFRh3k4KEU91aiqmEL5Mke089ty0ZhN6Hr5oVOlw1BOSB4LsWbcH2s-UqFp_cU4pjvktFDBNS9MqMf2tNaHn8-vh-KMcYtCbcsR8hHKGW6sN6D8YYVxaQr44E_mwUT3DM8SVG73zXP4c2mWmqc5q16MekbZgi8p9rgxLArMpi6QEBtETaGn6TQJn1Iu2ISpPd9QgIKJrdlGy0f4AKZ5uk8pNCY8bcMfN4TrC3jdE0qC92HzEjBuRLxtJnXCMD3ae22r9bz_l4MPYJik0UbPmDLK0ZQmhSpPLlfO52ubbit1jjdnQI8iM-rmM2nj4oSm_8zBbBJnRoN9QpnaqOgHVrdYl1_zK4rdmA4WTeT8JqSBWQbFFT_rOLf-0hgQxjrqY-mwjJ6259PdsEGyw4o23uA
+@SurveyMaker.API_HostAddress = https://localhost:7113
+@AccessToken = CfDJ8JUBxV25kDJMmtwQ-sf6sbRxKMLuy4mlFy9vaZatJdCv0187eWov0Zsp0YojKJVTB_DbEjM9MJob0XefBsn18Ypvo2gpnJPTSS44bSG_wd2t6OKNXgqKb1nP9dXZmFLFY63GXNrkT7fUABYhvc4GCe_I-9H8kZcrsoQEd4eN_eIS_BsbbKt0GkgSN4q9G30JjL-yWwwXEQ8S1LnabmFTSPbDAnJdJoojANZMpYrMC5sCdNalQ8z8yftqwz4Hqv8sc6-Zmjksj9EInVi4h4bvUGtrdFAEwkmGZXAd1gbBSxq53jI_M9F5nQMb3nhumOkeQI2Khd5LVqWu7XAidaFW3vXC7LDpUcXEabbgxUIW2R18BXo_yUKnGpL4BwXyq4hnpNoQ1gvW62ReP0YdfWsZoL4ObPhjWHrY8aowcgd2UWe0MdVlK_q4-oz5em3W8DGq4B9qFA4myxhdgMOnVt588qX9CAR5TPvsRUkPT76Ywek7FD-dwCE0w8tz1ka_TxIOf_q9XEiwFCLhHJyG6YHgVNB1c2c_ucYp6jCCtVUxfu6YVOmhcKu0RAJsTAIiw0M-45uRE1Q2k633jQ4MXdAH2FUyTIBLRitvCEFBqoDiqRkeWyHlLtrf0hLfA06kpmoqFeDGOA47XHkbVD3G7qacjtRKsnNZiTOGACyY0sAKG9D6rIzRJnab36sB7qgTvaZ_jA
 
 ### Register
 POST {{SurveyMaker.API_HostAddress}}/Register
@@ -31,3 +31,17 @@ Accept: application/json
 GET {{SurveyMaker.API_HostAddress}}/Test/Private
 Authorization: Bearer {{AccessToken}}
 Accept: application/json
+
+  
+### Create Survey
+POST {{SurveyMaker.API_HostAddress}}/Survey
+Authorization: Bearer {{AccessToken}}
+Content-Type: application/json
+
+{
+  "Title": "Epic survey",
+  "StartsAt": "2025-01-20T14:25:00Z",
+  "ExpiresAt": "2025-01-21T14:25:00Z"
+}
+
+###
