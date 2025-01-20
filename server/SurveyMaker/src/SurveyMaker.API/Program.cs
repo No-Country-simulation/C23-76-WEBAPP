@@ -1,17 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using SurveyMaker.API.Extensions;
+using SurveyMaker.Application.Extensions;
 using SurveyMaker.Domain.Entities;
 using SurveyMaker.Infrastructure.EF;
 using SurveyMaker.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connStrings = builder.Configuration.GetConnectionString("SurveyMakerDb");
-
 // Add services to the container.
 builder.Services
     .AddApiServices()
-    .AddInfrastructureServices(builder.Configuration);
+    .AddInfrastructureServices(builder.Configuration)
+    .AddApplicationServices();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -33,7 +35,7 @@ using (var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredSer
     dbContext.Database.EnsureCreated();
 }
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
