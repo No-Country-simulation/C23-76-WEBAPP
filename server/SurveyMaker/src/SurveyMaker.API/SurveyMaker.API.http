@@ -1,5 +1,5 @@
 @SurveyMaker.API_HostAddress = https://localhost:7113
-@AccessToken = CfDJ8JUBxV25kDJMmtwQ-sf6sbRxKMLuy4mlFy9vaZatJdCv0187eWov0Zsp0YojKJVTB_DbEjM9MJob0XefBsn18Ypvo2gpnJPTSS44bSG_wd2t6OKNXgqKb1nP9dXZmFLFY63GXNrkT7fUABYhvc4GCe_I-9H8kZcrsoQEd4eN_eIS_BsbbKt0GkgSN4q9G30JjL-yWwwXEQ8S1LnabmFTSPbDAnJdJoojANZMpYrMC5sCdNalQ8z8yftqwz4Hqv8sc6-Zmjksj9EInVi4h4bvUGtrdFAEwkmGZXAd1gbBSxq53jI_M9F5nQMb3nhumOkeQI2Khd5LVqWu7XAidaFW3vXC7LDpUcXEabbgxUIW2R18BXo_yUKnGpL4BwXyq4hnpNoQ1gvW62ReP0YdfWsZoL4ObPhjWHrY8aowcgd2UWe0MdVlK_q4-oz5em3W8DGq4B9qFA4myxhdgMOnVt588qX9CAR5TPvsRUkPT76Ywek7FD-dwCE0w8tz1ka_TxIOf_q9XEiwFCLhHJyG6YHgVNB1c2c_ucYp6jCCtVUxfu6YVOmhcKu0RAJsTAIiw0M-45uRE1Q2k633jQ4MXdAH2FUyTIBLRitvCEFBqoDiqRkeWyHlLtrf0hLfA06kpmoqFeDGOA47XHkbVD3G7qacjtRKsnNZiTOGACyY0sAKG9D6rIzRJnab36sB7qgTvaZ_jA
+@AccessToken = CfDJ8JUBxV25kDJMmtwQ-sf6sbRWplMpzhOaB9cCu3lLYsA0djd0sQZ_CGUL97UwWFBU17y57WrSR23lhCHoIPENjvcaBjX6zlUP6CJvM6lkD2F3Hnt51VR_Lnym7Zoxn8e5ltlLa1GMvN00Is1qHJ4H8GT89kVGe5fEWAkDwq0acjfouEJxfY_gQVgXEt-Q2JH59arGo8F2W-qokCNjx205Ron_Io9k0bWUDZT8UpM1dOERRdiise8DneWgPAkqFOebxxYP1Baf4ZegBzAzYXyhvxFLNMcjwAv5K6O3BUavJaoGdj9OoMfPmo8o7z5T5A-aZH_VcYRaSapUzMfWZ43CfyrQ9EmamAclKgSeKasd54RM_Fqy14qQvvWgf_O08WionqK1rUyboAA3WgD9jmbSzpdBRHsyGHJqdreDKBEF5GDW8_AZtg3lxNJsBFTmbAkIKTkgme09SqaIhSwg-bkJHMaNnpsW85ErLHhb0dg1ArX1oaRHREEVlr1YWqG60aXFo6NQyUcqQf0xOSSapX93Pxhm0K95S0jMR0-7LWB2-UgJybMO9ilNy2N_XTaE099-T3RZODMhZJKOOMwSTlTRS8xNBRhX-8lmWf-LCkCTbhBXeMtCQWESS7IWpmoWr43SmFzBsSy0OA_yXlQD6joIWFBUOxtowQgUDEQ3KvLKGUYagAEN4dSrLRQjn7zyV6xVBw
 
 ### Register
 POST {{SurveyMaker.API_HostAddress}}/Register
@@ -39,9 +39,44 @@ Authorization: Bearer {{AccessToken}}
 Content-Type: application/json
 
 {
-  "Title": "Epic survey",
-  "StartsAt": "2025-01-20T14:25:00Z",
-  "ExpiresAt": "2025-01-21T14:25:00Z"
+  "title": "Customer Satisfaction Survey",
+  "startsAt": "2025-02-01T10:00:00Z",
+  "expiresAt": "2025-03-01T23:59:59Z",
+  "allowAnonymousVotes": true,
+  "questions": [
+    {
+      "title": "How satisfied are you with our service?",
+      "maxSelections": 1,
+      "type": "SingleChoice",
+      "options": [
+        { "text": "Very Satisfied" },
+        { "text": "Satisfied" },
+        { "text": "Neutral" },
+        { "text": "Dissatisfied" },
+        { "text": "Very Dissatisfied" }
+      ]
+    },
+    {
+      "title": "Which features do you like the most? (Select up to 2)",
+      "maxSelections": 2,
+      "type": "MultipleChoice",
+      "options": [
+        { "text": "Fast Delivery" },
+        { "text": "Customer Support" },
+        { "text": "Affordable Prices" },
+        { "text": "Quality Products" }
+      ]
+    },
+    {
+      "title": "This was useful?",
+      "maxSelections": 2,
+      "type": "YesNo",
+      "options": [
+        { "text": "Yes, it was" },
+        { "text": "No, it wasn't" }
+      ]
+    }
+  ]
 }
 
 ###
