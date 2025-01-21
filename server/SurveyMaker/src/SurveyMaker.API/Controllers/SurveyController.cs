@@ -29,7 +29,19 @@ namespace SurveyMaker.API.Controllers
                 ExpiresAt = request.ExpiresAt,
                 StartsAt = request.StartsAt,
                 Title = request.Title,
-                VotesAmountRequiredToFinish = request.VotesAmountRequiredToFinish
+                VotesAmountRequiredToFinish = request.VotesAmountRequiredToFinish,
+                Questions = request.Questions.Select(x => new CreateSurveyQuestionDto
+                {
+                    MaxSelections = x.MaxSelections,
+                    Title = x.Title,
+                    Type = x.Type,
+                    Options = x.Options.Select(y => new CreateSurveyOptionDto
+                    {
+                        Text = y.Text,
+                    })
+                    .ToList()
+                })
+                .ToList()
             });
 
             return Created(Request.Path, result);
