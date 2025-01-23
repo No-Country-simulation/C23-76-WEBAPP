@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SurveyMaker.Application.Features.ExceptionHandlingBehavior;
 using SurveyMaker.Application.Services;
 using System.Reflection;
 
@@ -14,6 +16,12 @@ namespace SurveyMaker.Application.Extensions
             services.AddScoped<IUserContext, UserContext>();
 
             services.AddScoped<ISurveyUrlBuilder, SurveyUrlBuilder>();
+
+            // Registra el manejador de excepciones globales
+            services.AddScoped<IExceptionHandler, ExceptionHandler>();
+
+            // Registra el Pipeline Behavior
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
 
             services.AddMediatR(conf =>
             {

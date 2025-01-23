@@ -8,7 +8,6 @@ services:
     
   # Accounts Service
   smoker.api:
-      image: ${DOCKER_REGISTRY-}accountapi:latest
       build:
         context: ../
         dockerfile: ./src/SurveyMaker.API/Dockerfile

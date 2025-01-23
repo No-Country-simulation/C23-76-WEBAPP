@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SurveyMaker.API.Extensions;
+using SurveyMaker.API.Middlewares;
 using SurveyMaker.Application.Extensions;
 using SurveyMaker.Domain.Entities;
 using SurveyMaker.Infrastructure.EF;
@@ -16,6 +17,9 @@ builder.Services
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
+
+// Asegúrate de agregar tu middleware al pipeline antes de otros middlewares que podrían manejar excepciones (como UseRouting)
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
