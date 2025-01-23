@@ -35,7 +35,8 @@ namespace SurveyMaker.Domain.Entities
             bool allowAnonymousVotes,
             int? votesAmountRequiredToFinish,
             string createdBy,
-            SurveyLink surveyLink)
+            SurveyLink surveyLink,
+            ICollection<Question> questions)
         {
             if (expiresAt != null && votesAmountRequiredToFinish != null)
             {
@@ -57,7 +58,8 @@ namespace SurveyMaker.Domain.Entities
                 StartsAt = startsAt,
                 Type = GetType(expiresAt, votesAmountRequiredToFinish),
                 VotesAmountRequiredToFinish = votesAmountRequiredToFinish,
-                Url = surveyLink
+                Url = surveyLink,
+                Questions = questions
             };
 
             return survey;

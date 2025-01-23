@@ -1,5 +1,4 @@
 ﻿using SurveyMaker.Domain.Entities;
-using SurveyMaker.Domain.Enums;
 
 namespace SurveyMaker.Application.Models.Dtos
 {
@@ -12,6 +11,7 @@ namespace SurveyMaker.Application.Models.Dtos
         public DateTime? StartsAt { get; set; }
         public bool AllowAnonymousVotes { get; set; }
         public int? VotesAmountRequiredToFinish { get; set; }
+        public ICollection<QuestionDto> Questions { get; set; }
 
         public static SurveyDto Create(Survey survey)
         {
@@ -23,7 +23,21 @@ namespace SurveyMaker.Application.Models.Dtos
                 StartsAt = survey.StartsAt,
                 Title = survey.Title,
                 Type = survey.Type.ToString(),
-                VotesAmountRequiredToFinish = survey.VotesAmountRequiredToFinish
+                VotesAmountRequiredToFinish = survey.VotesAmountRequiredToFinish,
+                Questions = survey.Questions.Select(x => new QuestionDto
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    MaxSelections = x.MaxSelections,
+                    Type = x.Type.ToString(),
+                    Options = x.Options.Select(y => new OptionDto
+                    {
+                        Id = y.Id,
+                        Text = y.Text,
+                    })
+                    .ToList()
+                })
+                .ToList()
             };
         }
     }
