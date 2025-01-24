@@ -1,38 +1,35 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using SurveyMaker.Domain.Exceptions;
+using System.Net;
 
 namespace SurveyMaker.API.Middlewares
 {
-    public class GlobalExceptionHandlingMiddleware
+    public class GlobalExceptionHandlingMiddleware : IExceptionHandler
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
-
-        public GlobalExceptionHandlingMiddleware(RequestDelegate next, ILogger<GlobalExceptionHandlingMiddleware> logger)
+        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            _next = next;
-            _logger = logger;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
-        {
-            try
+            var problemDetails = new ProblemDetails
             {
-                await _next(context);
-            }
-            catch (Exception ex)
+                Title = "An error occurred",
+                Detail = exception.Message
+            };
+
+            switch(exception.GetBaseException())
             {
-                _logger.LogError(ex, "Unhandled exception occurred.");
+                case DomainException ex:
+                    problemDetails.Status = (int)HttpStatusCode.BadRequest;
+                    break;
 
-                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                context.Response.ContentType = "application/json";
-
-                var response = new
-                {
-                    error = ex.Message
-                };
-
-                await context.Response.WriteAsJsonAsync(response);
+                default:
+                    problemDetails.Status = (int)HttpStatusCode.InternalServerError;
+                    break;
             }
+
+            httpContext.Response.StatusCode = (int)problemDetails.Status;
+            await httpContext.Response.WriteAsJsonAsync(problemDetails);
+            
+            return true;
         }
     }
 }
