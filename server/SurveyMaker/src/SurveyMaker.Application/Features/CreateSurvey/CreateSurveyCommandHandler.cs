@@ -31,8 +31,15 @@ namespace SurveyMaker.Application.Features.CreateSurvey
                 allowAnonymousVotes: request.AllowAnonymousVotes,
                 votesAmountRequiredToFinish: request.VotesAmountRequiredToFinish,
                 createdBy: _userContext.UserId.ToString(),
-                surveyLink: _surveyUrlBuilder.Build()
-                );
+                surveyLink: _surveyUrlBuilder.Build(),
+                questions: request.Questions.Select(x => Question.Create(
+                    title: x.Title,
+                    maxSelections: x.MaxSelections,
+                    type: x.Type,
+                    options: x.Options.Select(y => Option.Create(
+                        text: y.Text))
+                    .ToList()))
+                .ToList());
 
             await _surveyRepository.SaveAsync(survey, cancellationToken);
 
