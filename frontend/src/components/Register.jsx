@@ -95,15 +95,14 @@ const Register = () => {
                             </div>
                             <FontAwesomeIcon icon={faKey} size="lg" />
                         </div>
+                        {/* Mostrar mensajes de error o éxito */}
+                            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+                            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
                         <button type="submit">Registrarse</button>
                         <p>
                             ¿Ya tienes una cuenta?{" "}
                             <b onClick={() => navigate("/login")}>Iniciar sesión</b>
                         </p>
-
-                        {/* Mostrar mensajes de error o éxito */}
-                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-                    {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
                     </form>
                 </motion.div>
             </div>

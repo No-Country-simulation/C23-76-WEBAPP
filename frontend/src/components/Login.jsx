@@ -17,44 +17,44 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
-
+        e.preventDefault();
+    
         const data = {
-        email: email,
-        password: password,
+            email: email,
+            password: password,
         };
-
+    
         try {
-        // Realizamos la petición POST con Axios
-        const response = await axios.post(
-            "https://surveymaker-53d73b4bd329.herokuapp.com/login", 
-            data, // Datos del login
-            {
-            headers: {
-                accept: "*/*", // Acepta cualquier tipo de respuesta
-                "Content-Type": "application/json", // Enviamos un JSON
-            },
+            const response = await axios.post(
+                "https://surveymaker-53d73b4bd329.herokuapp.com/login",
+                data,
+                {
+                    headers: {
+                        accept: "*/*",
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+    
+            if (response.status === 200) {
+                setSuccessMessage("¡Login exitoso!");
+                setErrorMessage("");
+    
+                // Guardar el email en el localStorage como identificador
+                localStorage.setItem("userEmail", email);
+    
+                // Redirigir a la página de bienvenida
+                setTimeout(() => {
+                    navigate(`/welcome`);
+                }, 1200);
             }
-        );
-
-        // Si la respuesta es exitosa (código 200)
-        if (response.status === 200) {
-            setSuccessMessage("¡Login exitoso!"); 
-            setErrorMessage(""); 
-            console.log(response.data); // Sirve para manejar el token u otros datos
-            setTimeout(() => {
-                navigate("/welcome");
-            }, 1200);
-
-        }
         } catch (error) {
-        // Manejo de errores
-        if (error.response && error.response.status === 401) {
-            setErrorMessage("Por favor, verifica tu email y contraseña.");
-        } else {
-            setErrorMessage("Ocurrió un error. Inténtalo nuevamente.");
-        }
-        setSuccessMessage("");
+            if (error.response && error.response.status === 401) {
+                setErrorMessage("Por favor, verifica tu email y contraseña.");
+            } else {
+                setErrorMessage("Ocurrió un error. Inténtalo nuevamente.");
+            }
+            setSuccessMessage("");
         }
     };
 
@@ -71,7 +71,8 @@ const Login = () => {
                     <div className='input-container'>
                         <div className='left'>
                             <label htmlFor="email">Email</label>
-                            <input 
+                            <input
+                                value={email} 
                                 type="email" 
                                 id="email" 
                                 name="email" 
@@ -86,7 +87,8 @@ const Login = () => {
                     <div className='input-container'>
                         <div className='left'>
                             <label htmlFor="password">Contraseña</label>
-                            <input 
+                            <input
+                                value={password} 
                                 type="password" 
                                 id="password" 
                                 name="password" 
@@ -98,16 +100,18 @@ const Login = () => {
                         </div>
                         <FontAwesomeIcon icon={faKey} size="lg" />
                     </div>
+                    
+                    {/* Mostrar mensajes de error o éxito */}
+                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+                    {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+
                     <button type="submit">Ingresar</button>
                     <p>¿Aún no tienes una cuenta?
                         <b onClick={() => navigate("/")}>Registrarse</b>
                     </p>
-                    {/* Mostrar mensajes de error o éxito */}
-                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-                    {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
                 </form>
-                </motion.div>
-            </div>
+            </motion.div>
+        </div>            
         </>
     )
 }
