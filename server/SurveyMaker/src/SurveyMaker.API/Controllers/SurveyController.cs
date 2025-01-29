@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SurveyMaker.API.Models.Requests;
 using SurveyMaker.Application.Features.CreateSurvey;
+using SurveyMaker.Application.Features.GetSurveyLink;
 using SurveyMaker.Application.Models.Dtos;
 
 namespace SurveyMaker.API.Controllers
@@ -46,5 +47,25 @@ namespace SurveyMaker.API.Controllers
 
             return Created(Request.Path, result);
         }
+
+
+        [HttpGet("{surveyId}")]
+        [ProducesResponseType<SurveyLinkDto>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSurveyLink(string surveyId)
+        {
+            var id = int.Parse(surveyId);
+            var userIsAuthenticated = User.Identity.IsAuthenticated;
+
+            var result = await _mediator.Send(new GetSurveyLinkQuery
+            {
+                SurveyId = id,
+                UserIsAuthenticated = userIsAuthenticated
+            });
+
+
+            return Ok(result);
+        }
+
     }
+
 }

@@ -11,3 +11,11 @@ services:
       build:
         context: ../
         dockerfile: ./src/SurveyMaker.API/Dockerfile
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"

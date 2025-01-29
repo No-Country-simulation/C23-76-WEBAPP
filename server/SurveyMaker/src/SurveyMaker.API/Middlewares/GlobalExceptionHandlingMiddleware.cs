@@ -20,7 +20,12 @@ namespace SurveyMaker.API.Middlewares
                 case DomainException ex:
                     problemDetails.Status = (int)HttpStatusCode.BadRequest;
                     break;
-
+                case NullReferenceException:
+                    problemDetails.Status = (int)HttpStatusCode.NotFound;
+                    break;
+                case UnauthorizedAccessException:
+                    problemDetails.Status = (int)HttpStatusCode.Unauthorized;
+                    break;
                 default:
                     problemDetails.Status = (int)HttpStatusCode.InternalServerError;
                     break;
