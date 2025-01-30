@@ -7,6 +7,7 @@
             //Survey
             public static string InvalidSurveyConfiguration = "Cannot set expiration date and votes amount at the same time.";
             public static string InvalidSurveyExpirationTime = "Expiration date cannot be older than now.";
+            public static string InvalidVotesAmount = "Votes amount required to finish should be greater than 0.";
 
             //Question
             public static string InvalidQuestionYesNoConfiguaration = "If question type is Yes/No could't have more than 2 options.";

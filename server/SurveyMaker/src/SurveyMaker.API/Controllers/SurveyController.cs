@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SurveyMaker.API.Models.Requests;
 using SurveyMaker.Application.Features.CreateSurvey;
+using SurveyMaker.Application.Features.UpdateSurvey;
 using SurveyMaker.Application.Models.Dtos;
 
 namespace SurveyMaker.API.Controllers
@@ -46,5 +47,24 @@ namespace SurveyMaker.API.Controllers
 
             return Created(Request.Path, result);
         }
+
+
+        
+        [HttpPut("{surveyId}")]
+        [Authorize]
+        [ProducesResponseType<SurveyDto>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Update(string surveyId, [FromBody] UpdateSurveyRequest request)
+        {
+            var result = await _mediator.Send(new UpdateSurveyCommand
+            {
+                Id = int.Parse(surveyId),
+                Title = request.Title,
+                ExpiresAt = request.ExpiresAt,
+                VotesAmountRequiredToFinish = request.VotesAmountRequiredToFinish
+            });
+
+            return Ok(result);
+        }
+
     }
 }

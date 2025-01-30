@@ -78,5 +78,34 @@ namespace SurveyMaker.Domain.Entities
 
             return SurveyType.MANNUALLY_CLOSED;
         }
+
+
+        public static Survey Update(
+            Survey survey,
+            string? title,
+            DateTime? expiresAt,
+            int? votesAmountRequiredToFinish)
+        {
+            switch(survey.Type)
+            {
+                case SurveyType.TIME:
+                    if (expiresAt != null && expiresAt < DateTime.UtcNow)
+                    {
+                        throw new InvalidSurveyParametersException(Constants.Errors.InvalidSurveyExpirationTime);
+                    }
+                    survey.ExpiresAt = expiresAt ?? survey.ExpiresAt;
+                    break;
+                case SurveyType.VOTES_AMOUNT:
+                    if (votesAmountRequiredToFinish != null && votesAmountRequiredToFinish <= 0)
+                    {
+                        throw new InvalidSurveyParametersException(Constants.Errors.InvalidVotesAmount);
+                    }
+                    survey.VotesAmountRequiredToFinish = votesAmountRequiredToFinish ?? survey.VotesAmountRequiredToFinish;
+                    break;
+            }
+
+            survey.Title = title ?? survey.Title;
+            return survey;
+        }
     }
 }
