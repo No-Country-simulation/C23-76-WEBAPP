@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Welcome from "./components/Welcome";
+import PrivateRoute from "./PrivateRoute";
 import './App.css';
+
 
 const App = () =>{
     return <BrowserRouter>
@@ -11,7 +13,9 @@ const App = () =>{
                 <Route path="/" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 
-                <Route path="/welcome" element={<Welcome />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path="/welcome" element={<Welcome />} />
+                </Route>
             </Routes>
         </div>
     </BrowserRouter>;
