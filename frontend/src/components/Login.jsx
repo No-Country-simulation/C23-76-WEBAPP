@@ -35,11 +35,12 @@ const Login = () => {
                     },
                 }
             );
-    
+            console.log(response.data.accessToken)
             if (response.status === 200) {
                 setSuccessMessage("¡Login exitoso!");
                 setErrorMessage("");
     
+                localStorage.setItem("token", response.data.accessToken);
                 // Guardar el email en el localStorage como identificador
                 localStorage.setItem("userEmail", email);
     

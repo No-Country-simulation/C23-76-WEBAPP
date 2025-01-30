@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import avatar from "../assets/avatar.png";
+import CardSurvey from "./CardSurvey";
+import axios from "axios"; // Asegúrate de importar axios
+import './welcome.css';
 
 const Welcome = () => {
     const navigate = useNavigate();
@@ -23,10 +27,37 @@ const Welcome = () => {
   };
 
     return (
-        <div className="welcome-container">
-            <h1>¡Bienvenido/a!</h1>
-            <p>Estás autenticado como: {userEmail}</p>
-            <button onClick={handleLogout}>Cerrar sesión</button>
+        <div className="welcome-container">            
+            <aside>
+                <header>
+                    <div>
+                        <img className="avatar" src={avatar} alt="Avatar" />
+                        <h2>Bienvenido/a,</h2>
+                        <h3 className="user-name">{userEmail}</h3>
+                    </div>
+                </header>
+                <nav>
+                    <div className="menu">
+                        <button className="btn-menu">Crear nueva encuesta</button>
+                        <button className="btn-menu">Encuestas activas</button>
+                        <button className="btn-menu">Historial</button>
+                    </div>
+                    <div className="cnt-btn-logout">
+                        <button className="btn-menu btn-logout" onClick={handleLogout}>Cerrar sesión</button>
+                    </div>
+                </nav>
+            </aside>
+            <main>
+                <div className="cnt-survey">
+                    <CardSurvey number="1" />
+                    <CardSurvey number="2"/>
+                    <CardSurvey number="3"/>
+                    <CardSurvey number="4"/>
+                    <CardSurvey number="5"/>
+                    <CardSurvey number="6"/>
+                    <CardSurvey number="7"/>
+                </div>
+            </main>
         </div>
     );
 };
