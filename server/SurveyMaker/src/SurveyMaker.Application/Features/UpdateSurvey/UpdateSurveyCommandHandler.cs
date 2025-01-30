@@ -6,12 +6,12 @@ using SurveyMaker.Domain.Repositories;
 
 namespace SurveyMaker.Application.Features.UpdateSurvey
 {
-    public class UpdateSurveryCommandHandler : IRequestHandler<UpdateSurveyCommand, SurveyDto>
+    public class UpdateSurveyCommandHandler : IRequestHandler<UpdateSurveyCommand, SurveyDto>
     {
         private readonly IUserContext _userContext;
         private readonly ISurveyRepository _surveyRepository;
 
-        public UpdateSurveryCommandHandler(IUserContext userContext, ISurveyRepository surveyRepository)
+        public UpdateSurveyCommandHandler(IUserContext userContext, ISurveyRepository surveyRepository)
         {
             _userContext = userContext;
             _surveyRepository = surveyRepository;

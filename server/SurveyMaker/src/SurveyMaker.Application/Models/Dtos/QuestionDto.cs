@@ -29,5 +29,23 @@ namespace SurveyMaker.Application.Models.Dtos
             };
         }
 
+        public static QuestionDto Update(Question question)
+        {
+            return new QuestionDto
+            {
+                Id = question.Id,
+                Title = question.Title,
+                Type = question.Type.ToString(),
+                MaxSelections = question.MaxSelections,
+                Options = question.Options
+                    .Select(option => new OptionDto
+                    {
+                        Id = option.Id,
+                        Text = option.Text
+                    })
+                    .ToList()
+            };
+        }
+
     }
 }

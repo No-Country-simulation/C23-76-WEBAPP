@@ -52,5 +52,12 @@ namespace SurveyMaker.Domain.Entities
                 Options = options
             };
         }
+
+        public static Question Update(Question question, string title, int? maxSelections)
+        {
+            question.Title = title ?? question.Title;
+            question.MaxSelections = maxSelections ?? question.MaxSelections;
+            return question;
+        }
     }
 }
