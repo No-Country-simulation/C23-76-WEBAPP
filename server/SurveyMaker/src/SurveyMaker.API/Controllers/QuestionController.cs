@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SurveyMaker.API.Models.Requests;
 using SurveyMaker.Application.Features.CreateQuestion;
 using SurveyMaker.Application.Features.CreateSurvey;
+using SurveyMaker.Application.Features.DeleteQuestion;
 using SurveyMaker.Application.Features.UpdateQuestion;
 using SurveyMaker.Application.Models.Dtos;
 
@@ -58,6 +59,20 @@ namespace SurveyMaker.API.Controllers
             });
 
             return Ok(result);
+        }
+
+        [HttpDelete("{questionId}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Delete(string questionId)
+        {
+            var id = int.Parse(questionId);
+            await _mediator.Send(new DeleteQuestionCommand
+            {
+                Id = id,
+            });
+
+            return NoContent();
         }
     }
 }
