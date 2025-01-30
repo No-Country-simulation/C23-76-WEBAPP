@@ -14,6 +14,12 @@ namespace SurveyMaker.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<int> DeleteAsync(Option option)
+        {
+            _context.Options.Remove(option);
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<Option?> GetByIdAsync(int id)
         {
             return await _context.Options.FirstOrDefaultAsync(x => x.Id == id);
