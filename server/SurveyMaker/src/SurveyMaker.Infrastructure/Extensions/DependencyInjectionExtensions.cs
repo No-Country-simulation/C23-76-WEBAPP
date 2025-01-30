@@ -29,6 +29,7 @@ namespace SurveyMaker.Infrastructure.Extensions
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<ISurveyRepository, SurveyRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
 
             return services;
         }
