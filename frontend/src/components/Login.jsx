@@ -11,6 +11,7 @@ const Login = () => {
 
     const [email, setEmail] = useState(""); 
     const [password, setPassword] = useState(""); 
+
     const [errorMessage, setErrorMessage] = useState(""); 
     const [successMessage, setSuccessMessage] = useState(""); 
 
@@ -35,18 +36,19 @@ const Login = () => {
                     },
                 }
             );
-    
             if (response.status === 200) {
                 setSuccessMessage("¡Login exitoso!");
                 setErrorMessage("");
     
-                // Guardar el email en el localStorage como identificador
-                localStorage.setItem("userEmail", email);
+                const token = response.data.accessToken; // Obtengo el token
+                localStorage.setItem("token", token); // Lo guardo localStorage
+                
+                localStorage.setItem("userEmail", email); 
     
-                // Redirigir a la página de bienvenida
+                
                 setTimeout(() => {
-                    navigate(`/welcome`);
-                }, 1200);
+                    navigate(`/welcome`); // Redirigir a la página de bienvenida
+                }, 1000);
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {
@@ -78,7 +80,7 @@ const Login = () => {
                                 name="email" 
                                 placeholder='Ingrese su email' 
                                 autoComplete='off' 
-                                onChange={(e) => setEmail(e.target.value)} // Actualizamos el estado del email
+                                onChange={(e) => setEmail(e.target.value)} 
                                 required
                             /> 
                         </div>
@@ -94,7 +96,7 @@ const Login = () => {
                                 name="password" 
                                 placeholder='Ingrese su contraseña' 
                                 autoComplete='off' 
-                                onChange={(e) => setPassword(e.target.value)} // Actualizamos el estado de la contraseña
+                                onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                         </div>
