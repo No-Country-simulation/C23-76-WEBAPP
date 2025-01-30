@@ -42,8 +42,7 @@ namespace SurveyMaker.Application.Features.CreateOption
                 throw new UnauthorizedAccessException("You are not allowed to create options for this question.");
             }
 
-            var opcion = Option.Create(request.Text);
-            opcion.QuestionId = question.Id;
+            var opcion = Option.Create(request.Text, question.Id);
 
             await _optionRepository.SaveAsync(opcion, cancellationToken);
 

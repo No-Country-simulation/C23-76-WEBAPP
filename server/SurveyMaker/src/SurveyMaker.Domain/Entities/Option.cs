@@ -11,5 +11,20 @@
         {
             return new Option { Text = text };
         }
+
+        public static Option Create(string text, int questionId)
+        {
+            return new Option { QuestionId = questionId, Text = text };
+        }
+        
+        public static Option Update(Option option)
+        {
+            return new Option
+            {
+                Id = option.Id,
+                Text = option.Text,
+                QuestionId = option.QuestionId
+            };
+        }
     }
 }

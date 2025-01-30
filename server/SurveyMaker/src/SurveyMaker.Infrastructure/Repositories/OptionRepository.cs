@@ -24,5 +24,11 @@ namespace SurveyMaker.Infrastructure.Repositories
             await _context.Options.AddAsync(option, cancellationToken);
             return await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<int> UpdateAsync(Option option, CancellationToken cancellationToken)
+        {
+            _context.Options.Update(option);
+            return await _context.SaveChangesAsync(cancellationToken);
+        }
     }
 }
