@@ -30,6 +30,7 @@ namespace SurveyMaker.Infrastructure.Extensions
         {
             services.AddScoped<ISurveyRepository, SurveyRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IOptionRepository, OptionRepository>();
 
             return services;
         }
