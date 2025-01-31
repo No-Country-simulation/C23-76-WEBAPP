@@ -72,11 +72,13 @@ namespace SurveyMaker.API.Controllers
         [HttpGet("list/private")]
         [Authorize]
         [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetListByUser()
+        public async Task<IActionResult> GetListByUser(SurveyListRequest request)
         {
             var result = await _mediator.Send(new GetSurveyListQuery
             {
-                IsAuthenticated = true
+                IsAuthenticated = true,
+                withQuestions = request.WithQuestions,
+                withOptions = request.WithOptions
             });
 
             return Ok(result);
@@ -84,11 +86,13 @@ namespace SurveyMaker.API.Controllers
 
         [HttpGet("list/public")]
         [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList(SurveyListRequest request)
         {
             var result = await _mediator.Send(new GetSurveyListQuery
             {
-                IsAuthenticated = false
+                IsAuthenticated = false,
+                withQuestions = request.WithQuestions,
+                withOptions = request.WithOptions
             });
 
             return Ok(result);
