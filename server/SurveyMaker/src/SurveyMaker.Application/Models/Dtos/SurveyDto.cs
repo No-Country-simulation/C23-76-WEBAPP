@@ -40,5 +40,35 @@ namespace SurveyMaker.Application.Models.Dtos
                 .ToList()
             };
         }
+
+        public static List<SurveyDto> CreateList(List<Survey> surveyList)
+        {
+            return surveyList.Select(x => new SurveyDto
+            {
+                Id = x.Id,
+                AllowAnonymousVotes = x.AllowAnonymousVotes,
+                ExpiresAt = x.ExpiresAt,
+                StartsAt = x.StartsAt,
+                Title = x.Title,
+                Type = x.Type.ToString(),
+                VotesAmountRequiredToFinish= x.VotesAmountRequiredToFinish,
+                Questions = x.Questions.Select(y => new QuestionDto
+                {
+                    Id = y.Id,
+                    Title = y.Title,
+                    MaxSelections = y.MaxSelections,
+                    Type = y.Type.ToString(),
+                    Options = y.Options.Select(z => new OptionDto
+                    {
+                        Id= z.Id,
+                        Text= z.Text,
+                    })
+                    .ToList()
+                })
+                .ToList()
+            }
+            ).ToList();
+        }
+
     }
 }

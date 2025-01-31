@@ -22,6 +22,17 @@ namespace SurveyMaker.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == surveyId);
         }
 
+        public async Task<List<Survey>> GetAllByUserAsync(Guid userId)
+        {
+            
+            return await _context.Surveys
+                .Where(x => x.CreatedBy == userId.ToString())
+                .Include(x => x.Questions)
+                .ThenInclude(x => x.Options)
+                .ToListAsync();
+        }
+
+
         public async Task<int> SaveAsync(Survey survey, CancellationToken cancellationToken)
         {
             await _context.Surveys.AddAsync(survey, cancellationToken);
@@ -32,6 +43,14 @@ namespace SurveyMaker.Infrastructure.Repositories
         {
             _context.Surveys.Update(survey);
             return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<List<Survey>> GetAllAsync()
+        {
+            return await _context.Surveys
+                .Include(x => x.Questions)
+                .ThenInclude(x => x.Options)
+                .ToListAsync();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SurveyMaker.API.Models.Requests;
 using SurveyMaker.Application.Features.CreateSurvey;
+using SurveyMaker.Application.Features.GetSurveyList;
 using SurveyMaker.Application.Features.UpdateSurvey;
 using SurveyMaker.Application.Models.Dtos;
 
@@ -61,6 +62,32 @@ namespace SurveyMaker.API.Controllers
                 Title = request.Title,
                 ExpiresAt = request.ExpiresAt,
                 VotesAmountRequiredToFinish = request.VotesAmountRequiredToFinish
+            });
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("list/private")]
+        [Authorize]
+        [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetListByUser()
+        {
+            var result = await _mediator.Send(new GetSurveyListQuery
+            {
+                IsAuthenticated = true
+            });
+
+            return Ok(result);
+        }
+
+        [HttpGet("list/public")]
+        [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetList()
+        {
+            var result = await _mediator.Send(new GetSurveyListQuery
+            {
+                IsAuthenticated = false
             });
 
             return Ok(result);
