@@ -19,7 +19,7 @@ namespace SurveyMaker.Application.Features.DeleteQuestion
 
         public async Task<int> Handle(DeleteQuestionCommand request, CancellationToken cancellationToken)
         {
-            var question = await _questionRepository.GetByIdAsync(request.Id, cancellationToken);
+            var question = await _questionRepository.GetByIdAsync(request.Id);
 
             if (question == null)
             {

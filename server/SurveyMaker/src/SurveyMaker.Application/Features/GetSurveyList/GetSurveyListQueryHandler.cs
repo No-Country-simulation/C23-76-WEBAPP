@@ -19,8 +19,8 @@ namespace SurveyMaker.Application.Features.GetSurveyList
         public async Task<List<SurveyDto>> Handle(GetSurveyListQuery request, CancellationToken cancellationToken)
         {
             var surveys = request.IsAuthenticated
-                ? await _surveyRepository.GetAllByUserAsync(_userContext.UserId)
-                : await _surveyRepository.GetAllAsync();
+                ? await _surveyRepository.GetAllByUserAsync(_userContext.UserId, request.withQuestions, request.withOptions)
+                : await _surveyRepository.GetAllAsync(request.withQuestions, request.withOptions);
 
             return SurveyDto.CreateList(surveys);
 

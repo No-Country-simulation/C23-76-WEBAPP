@@ -24,7 +24,7 @@ namespace SurveyMaker.Application.Features.CreateOption
 
         public async Task<OptionDto> Handle(CreateOptionCommand request, CancellationToken cancellationToken)
         {
-            var question = await _questionRepository.GetByIdAsync(request.QuestionId, cancellationToken);
+            var question = await _questionRepository.GetByIdAsync(request.QuestionId);
 
             if (question == null)
             {

@@ -6,5 +6,7 @@ namespace SurveyMaker.Application.Features.GetSurveyList
     public class GetSurveyListQuery : IRequest<List<SurveyDto>>
     {
         public bool IsAuthenticated { get; set; }
+        public bool withQuestions { get; set; }
+        public bool withOptions { get; set; }
     }
 }

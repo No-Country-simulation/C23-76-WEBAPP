@@ -21,7 +21,7 @@ namespace SurveyMaker.Application.Features.UpdateQuestion
 
         public async Task<QuestionDto> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
         {
-            var survey = await _surveyRepository.GetByIdAsync(request.SurveyId);
+            var survey = await _surveyRepository.GetByIdAsync(request.SurveyId, withQuestions: true, withOptions: false);
             if (survey == null)
             {
                 throw new NullReferenceException("Survey not found");

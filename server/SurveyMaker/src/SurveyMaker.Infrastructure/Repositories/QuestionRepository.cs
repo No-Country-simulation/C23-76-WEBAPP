@@ -20,11 +20,15 @@ namespace SurveyMaker.Infrastructure.Repositories
             return await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<Question?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<Question?> GetByIdAsync(int id, bool withOptions = false)
         {
-            return await _context.Questions
-                .Include(x => x.Options)
-                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            var query = _context.Questions.AsQueryable();
+            if (withOptions) {
+                query = query.Include(x => x.Options);
+            }
+
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
+
         }
 
         public async Task<int> SaveAsync(Question question, CancellationToken cancellationToken)

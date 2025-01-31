@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SurveyMaker.API.Extensions;
+using SurveyMaker.API.Middlewares;
 using SurveyMaker.Application.Extensions;
 using SurveyMaker.Domain.Entities;
 using SurveyMaker.Infrastructure.EF;
@@ -15,7 +16,13 @@ builder.Services
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddProblemDetails();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandlingMiddleware>();
+
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -23,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 // Ensure Db is created and migrated
 using (var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<SurveyMakerDbContext>())

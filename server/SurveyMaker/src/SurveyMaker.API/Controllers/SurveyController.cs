@@ -5,6 +5,7 @@ using SurveyMaker.API.Models.Requests;
 using SurveyMaker.Application.Features.CreateSurvey;
 using SurveyMaker.Application.Features.GetSurveyList;
 using SurveyMaker.Application.Features.UpdateSurvey;
+using SurveyMaker.Application.Features.GetSurveyLink;
 using SurveyMaker.Application.Models.Dtos;
 
 namespace SurveyMaker.API.Controllers
@@ -54,11 +55,11 @@ namespace SurveyMaker.API.Controllers
         [HttpPut("{surveyId}")]
         [Authorize]
         [ProducesResponseType<SurveyDto>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update(string surveyId, [FromBody] UpdateSurveyRequest request)
+        public async Task<IActionResult> Update([FromRoute] int surveyId, [FromBody] UpdateSurveyRequest request)
         {
             var result = await _mediator.Send(new UpdateSurveyCommand
             {
-                Id = int.Parse(surveyId),
+                Id = surveyId,
                 Title = request.Title,
                 ExpiresAt = request.ExpiresAt,
                 VotesAmountRequiredToFinish = request.VotesAmountRequiredToFinish
@@ -93,5 +94,24 @@ namespace SurveyMaker.API.Controllers
             return Ok(result);
         }
 
+
+
+        [HttpGet("link/{surveyId}")]
+        [ProducesResponseType<SurveyLinkDto>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSurveyLink([FromRoute] int surveyId)
+        {
+            var userIsAuthenticated = User.Identity.IsAuthenticated; 
+
+            var result = await _mediator.Send(new GetSurveyLinkQuery
+            {
+                SurveyId = surveyId,
+                UserIsAuthenticated = userIsAuthenticated
+            });
+
+
+            return Ok(result);
+        }
+
     }
+
 }

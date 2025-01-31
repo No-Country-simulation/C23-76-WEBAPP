@@ -28,7 +28,7 @@ namespace SurveyMaker.Application.Features.UpdateOption
                 throw new NullReferenceException($"Option with id {request.Id} not found.");
             }
 
-            var question = await _questionRepository.GetByIdAsync(option.QuestionId, cancellationToken);
+            var question = await _questionRepository.GetByIdAsync(option.QuestionId);
             if (question == null)
             {
                 throw new NullReferenceException($"Question with id {option.QuestionId} not found.");

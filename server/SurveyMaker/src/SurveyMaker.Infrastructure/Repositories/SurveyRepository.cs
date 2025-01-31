@@ -14,22 +14,39 @@ namespace SurveyMaker.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Survey?> GetByIdAsync(int surveyId)
+        public async Task<Survey?> GetByIdAsync(int surveyId, bool withQuestions = false , bool withOptions = false)
         {
-            return await _context.Surveys
-                .Include(x => x.Questions)
-                .ThenInclude(x => x.Options)
-                .FirstOrDefaultAsync(x => x.Id == surveyId);
+            var query = _context.Surveys.AsQueryable();
+
+            if (withQuestions)
+            {
+                query = query.Include(x => x.Questions);
+            }
+
+            if (withOptions)
+            {
+                query = query.Include(x => x.Questions).ThenInclude(x => x.Options);
+            }
+
+            return await query.FirstOrDefaultAsync(x => x.Id == surveyId);
         }
 
-        public async Task<List<Survey>> GetAllByUserAsync(Guid userId)
+        public async Task<List<Survey>> GetAllByUserAsync(Guid userId, bool withQuestions = false, bool withOptions = false)
         {
-            
-            return await _context.Surveys
-                .Where(x => x.CreatedBy == userId.ToString())
-                .Include(x => x.Questions)
-                .ThenInclude(x => x.Options)
-                .ToListAsync();
+            var query = _context.Surveys
+                .Where(x => x.CreatedBy == userId.ToString());
+
+            if (withQuestions)
+            {
+                query = query.Include(x => x.Questions);
+            }
+
+            if (withOptions)
+            {
+                query = query.Include(x => x.Questions).ThenInclude(x => x.Options);
+            }
+
+            return await query.ToListAsync();
         }
 
 
@@ -45,12 +62,34 @@ namespace SurveyMaker.Infrastructure.Repositories
             return await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<List<Survey>> GetAllAsync()
+        public async Task<Survey?> GetSurveyLinkAsync(int surveyId, CancellationToken cancellationToken)
         {
             return await _context.Surveys
-                .Include(x => x.Questions)
-                .ThenInclude(x => x.Options)
-                .ToListAsync();
+                .AsNoTracking()
+                .Where(x => x.Id == surveyId)
+                .Select(x => new Survey
+                {
+                    Url = x.Url,
+                    AllowAnonymousVotes = x.AllowAnonymousVotes
+                })
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<List<Survey>> GetAllAsync(bool withQuestions = false, bool withOptions = false)
+        {
+            var query = _context.Surveys.AsQueryable();
+
+            if (withQuestions)
+            {
+                query = query.Include(x => x.Questions);
+            }
+
+            if (withOptions)
+            {
+                query = query.Include(x => x.Questions).ThenInclude(x => x.Options);
+            }
+
+            return await query.ToListAsync();
         }
     }
 }
