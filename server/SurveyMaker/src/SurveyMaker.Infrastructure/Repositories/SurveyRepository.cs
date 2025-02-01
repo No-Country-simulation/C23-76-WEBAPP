@@ -14,11 +14,24 @@ namespace SurveyMaker.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Survey?> GetByIdAsync(int surveyId)
+        public async Task<Survey?> GetByIdAsync(int surveyId, bool withQuestions = false, bool withOptions = false)
         {
+            if (withQuestions && withOptions)
+            {
+                return await _context.Surveys
+                    .Include(x => x.Questions)
+                    .ThenInclude(x => x.Options)
+                    .FirstOrDefaultAsync(x => x.Id == surveyId);
+            }
+
+            if (withQuestions)
+            {
+                return await _context.Surveys
+                    .Include(x => x.Questions)
+                    .FirstOrDefaultAsync(x => x.Id == surveyId);
+            }
+
             return await _context.Surveys
-                .Include(x => x.Questions)
-                .ThenInclude(x => x.Options)
                 .FirstOrDefaultAsync(x => x.Id == surveyId);
         }
 
