@@ -47,12 +47,11 @@ namespace SurveyMaker.API.Controllers
         [HttpPut("{questionId}")]
         [Authorize]
         [ProducesResponseType<QuestionDto>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update(string questionId, [FromBody] UpdateQuestionRequest request)
+        public async Task<IActionResult> Update([FromRoute] int questionId, [FromBody] UpdateQuestionRequest request)
         {
-            var id = int.Parse(questionId);
             var result = await _mediator.Send(new UpdateQuestionCommand
             {
-                Id = id,
+                Id = questionId,
                 SurveyId = request.SurveyId,
                 Title = request.Title,
                 MaxSelections = request.MaxSelections

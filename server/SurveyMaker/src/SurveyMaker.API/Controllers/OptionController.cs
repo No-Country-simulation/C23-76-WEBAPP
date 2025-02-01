@@ -38,7 +38,7 @@ namespace SurveyMaker.API.Controllers
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType<OptionDto>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update(int id, [FromBody] CreateSurveyOptionRequest request)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CreateSurveyOptionRequest request)
         {
             var result = await _mediator.Send(new UpdateOptionCommand
             {
@@ -52,13 +52,11 @@ namespace SurveyMaker.API.Controllers
         [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var idInteger = int.Parse(id);
-
             var result = await _mediator.Send(new DeleteOptionCommand
             {
-                Id = idInteger
+                Id = id
             });
 
             return NoContent();
