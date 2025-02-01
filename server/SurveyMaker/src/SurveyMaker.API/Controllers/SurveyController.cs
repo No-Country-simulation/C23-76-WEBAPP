@@ -53,11 +53,11 @@ namespace SurveyMaker.API.Controllers
         [HttpPut("{surveyId}")]
         [Authorize]
         [ProducesResponseType<SurveyDto>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update(string surveyId, [FromBody] UpdateSurveyRequest request)
+        public async Task<IActionResult> Update([FromRoute] int surveyId, [FromBody] UpdateSurveyRequest request)
         {
             var result = await _mediator.Send(new UpdateSurveyCommand
             {
-                Id = int.Parse(surveyId),
+                Id = surveyId,
                 Title = request.Title,
                 ExpiresAt = request.ExpiresAt,
                 VotesAmountRequiredToFinish = request.VotesAmountRequiredToFinish
