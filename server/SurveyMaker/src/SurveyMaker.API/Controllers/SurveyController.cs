@@ -49,16 +49,15 @@ namespace SurveyMaker.API.Controllers
         }
 
 
-        [HttpGet("{surveyId}")]
+        [HttpGet("link/{surveyId}")]
         [ProducesResponseType<SurveyLinkDto>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetSurveyLink(string surveyId)
+        public async Task<IActionResult> GetSurveyLink([FromRoute] int surveyId)
         {
-            var id = int.Parse(surveyId);
             var userIsAuthenticated = User.Identity.IsAuthenticated;
 
             var result = await _mediator.Send(new GetSurveyLinkQuery
             {
-                SurveyId = id,
+                SurveyId = surveyId,
                 UserIsAuthenticated = userIsAuthenticated
             });
 
