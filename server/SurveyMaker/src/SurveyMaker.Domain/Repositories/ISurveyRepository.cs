@@ -10,6 +10,7 @@ namespace SurveyMaker.Domain.Repositories
         Task<Survey?> GetByIdAsync(int surveyId, bool withQuestions = false, bool withOptions = false);
         Task<int> UpdateAsync(Survey survey, CancellationToken cancellationToken);
         Task<List<Survey>> GetAllByUserAsync(Guid userId, bool withQuestions = false, bool withOptions = false);
-        Task<List<Survey>> GetAllAsync(bool withQuestions = false, bool withOptions = false);
+        Task<List<Survey>> GetPrivateListAsync(bool withQuestions = false, bool withOptions = false);
+        Task<List<Survey>> GetPublicListAsync(bool withQuestions = false, bool withOptions = false);
     }
 }

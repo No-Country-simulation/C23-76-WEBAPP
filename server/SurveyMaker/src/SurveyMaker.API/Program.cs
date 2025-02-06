@@ -2,11 +2,26 @@ using Microsoft.EntityFrameworkCore;
 using SurveyMaker.API.Extensions;
 using SurveyMaker.API.Middlewares;
 using SurveyMaker.Application.Extensions;
+using SurveyMaker.Application.Hubs;
 using SurveyMaker.Domain.Entities;
 using SurveyMaker.Infrastructure.EF;
 using SurveyMaker.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configurar CORS para permitir el acceso desde el frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:4200")  // URL de tu frontend
+            .AllowCredentials()  // Permitir credenciales (cookies, autenticación)
+            .AllowAnyHeader()  // Permitir cualquier encabezado
+            .AllowAnyMethod();  // Permitir cualquier método HTTP
+    });
+});
+
 
 // Add services to the container.
 builder.Services
@@ -44,9 +59,10 @@ using (var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredSer
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowLocalhost");
 app.UseAuthorization();
 
+app.MapHub<VoteHub>("/voteHub"); // Ahora está correctamente mapeado
 app.MapIdentityApi<SurveyMakerUser>();
 
 app.MapControllers();

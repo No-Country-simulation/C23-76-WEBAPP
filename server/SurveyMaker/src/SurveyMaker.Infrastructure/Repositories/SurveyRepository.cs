@@ -75,7 +75,7 @@ namespace SurveyMaker.Infrastructure.Repositories
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<List<Survey>> GetAllAsync(bool withQuestions = false, bool withOptions = false)
+        public async Task<List<Survey>> GetPublicListAsync(bool withQuestions = false, bool withOptions = false)
         {
             var query = _context.Surveys.AsQueryable();
 
@@ -89,7 +89,24 @@ namespace SurveyMaker.Infrastructure.Repositories
                 query = query.Include(x => x.Questions).ThenInclude(x => x.Options);
             }
 
-            return await query.ToListAsync();
+            return await query.Where(x => x.AllowAnonymousVotes).ToListAsync();
+        }
+
+        public async Task<List<Survey>> GetPrivateListAsync(bool withQuestions = false, bool withOptions = false)
+        {
+            var query = _context.Surveys.AsQueryable();
+
+            if (withQuestions)
+            {
+                query = query.Include(x => x.Questions);
+            }
+
+            if (withOptions)
+            {
+                query = query.Include(x => x.Questions).ThenInclude(x => x.Options);
+            }
+
+            return await query.Where(x => !x.AllowAnonymousVotes).ToListAsync();
         }
     }
 }

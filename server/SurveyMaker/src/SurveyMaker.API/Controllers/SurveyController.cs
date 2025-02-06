@@ -69,13 +69,14 @@ namespace SurveyMaker.API.Controllers
         }
 
 
-        [HttpGet("list/private")]
+        [HttpPost("list/private")]
         [Authorize]
         [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetListByUser(SurveyListRequest request)
+        public async Task<IActionResult> GetPrivateList(SurveyListRequest request)
         {
             var result = await _mediator.Send(new GetSurveyListQuery
             {
+                isPersonal = false,
                 IsAuthenticated = true,
                 withQuestions = request.WithQuestions,
                 withOptions = request.WithOptions
@@ -84,13 +85,30 @@ namespace SurveyMaker.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("list/public")]
+        [HttpPost("list/public")]
         [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetList(SurveyListRequest request)
+        public async Task<IActionResult> GetPublicList(SurveyListRequest request)
         {
             var result = await _mediator.Send(new GetSurveyListQuery
             {
                 IsAuthenticated = false,
+                withQuestions = request.WithQuestions,
+                withOptions = request.WithOptions
+            });
+
+            return Ok(result);
+        }
+
+
+        [HttpPost("list/user")]
+        [Authorize]
+        [ProducesResponseType<List<SurveyDto>>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetListByUser(SurveyListRequest request)
+        {
+            var result = await _mediator.Send(new GetSurveyListQuery
+            {
+                isPersonal = true,
+                IsAuthenticated = true,
                 withQuestions = request.WithQuestions,
                 withOptions = request.WithOptions
             });

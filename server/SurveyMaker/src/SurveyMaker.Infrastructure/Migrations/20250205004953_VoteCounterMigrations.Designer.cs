@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SurveyMaker.Infrastructure.EF;
@@ -11,9 +12,11 @@ using SurveyMaker.Infrastructure.EF;
 namespace SurveyMaker.Infrastructure.Migrations
 {
     [DbContext(typeof(SurveyMakerDbContext))]
-    partial class SurveyMakerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250205004953_VoteCounterMigrations")]
+    partial class VoteCounterMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,35 +310,6 @@ namespace SurveyMaker.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("SurveyMaker.Domain.Entities.Vote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AnswersJson")
-                        .IsRequired()
-                        .HasColumnType("jsonb");
-
-                    b.Property<int>("SurveyId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("VotedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("VoterId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SurveyId");
-
-                    b.ToTable("Vote");
-                });
-
             modelBuilder.Entity("SurveyMaker.Domain.Entities.VoteCounter", b =>
                 {
                     b.Property<int>("Id")
@@ -455,17 +429,6 @@ namespace SurveyMaker.Infrastructure.Migrations
 
                     b.Navigation("Url")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SurveyMaker.Domain.Entities.Vote", b =>
-                {
-                    b.HasOne("SurveyMaker.Domain.Entities.Survey", "Survey")
-                        .WithMany()
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Survey");
                 });
 
             modelBuilder.Entity("SurveyMaker.Domain.Entities.VoteCounter", b =>

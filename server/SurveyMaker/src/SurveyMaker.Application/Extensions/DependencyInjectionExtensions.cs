@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
+using SurveyMaker.Application.Hubs;
 using SurveyMaker.Application.Services;
 using System.Reflection;
 
@@ -18,6 +20,8 @@ namespace SurveyMaker.Application.Extensions
             {
                 conf.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
+
+            services.AddSignalR(); // Agrega SignalR a los servicios
 
             return services;
         }
