@@ -1,65 +1,30 @@
-import React, { useState } from 'react';
-import icon from "../assets/icon.png";
+import React from "react";
 import "./welcome.css";
 
-const CardSurvey = ( { number} ) => {
-    const [selectedOptions, setSelectedOptions] = useState([]);
-
-    const handleOptionChange = (option) => {
-        if (selectedOptions.includes(option)) {
-        setSelectedOptions(selectedOptions.filter((o) => o !== option));
-        } else {
-        setSelectedOptions([...selectedOptions, option]);
-        }
-    };
+const CardSurvey = ({ title, questions, tiempo, onClick }) => {
     return (
-            <div className="survey-container">
-            <h2>Encuesta {number}</h2>
-            <p>¿Quién puede participar en esta encuesta?</p>
-            <div className="options-container">
-                <div className='op-bd border'>
-                    <div className='cnt-label'>
-                        <img src={icon} />
-                        <label htmlFor="todos">Todos</label>
+        <div className="survey-container" onClick={onClick} style={{ cursor: "pointer" }}>
+            <section className="box__father">
+                <div className="white__box">
+                    <h1 className="card_title">{title}</h1>
+                    <p className="Items_p">Items</p>
+                    <div className="items__and__buttons">
+                        
+                        <ul className="created__surveys">
+                            {questions.length > 0 ? (
+                                questions.map((q, index) => (
+                                    <li key={index} className="item__survey">{q.title}</li>
+                                ))
+                            ) : (
+                                <li className="item__survey">No hay preguntas</li>
+                            )}
+                        </ul>
                     </div>
-                    <input
-                        type="checkbox"
-                        id="todos"
-                        value="Todos"
-                        checked={selectedOptions.includes('Todos')}
-                        onChange={() => handleOptionChange('Todos')}
-                    />
+                    <p>Tiempo restante: {tiempo}</p>
                 </div>
-                <div className='op-bd border'>
-                    <div className='cnt-label'>
-                        <img src={icon} />
-                        <label htmlFor="url">URL</label>
-                    </div>
-                    <input
-                        type="checkbox"
-                        id="url"
-                        value="URL"
-                        checked={selectedOptions.includes('URL')}
-                        onChange={() => handleOptionChange('URL')}
-                    />
-                </div>
-                <div className='op-bd'>
-                    <div className='cnt-label'>
-                        <img src={icon} />
-                        <label htmlFor="email">Invitados por Email</label>
-                    </div>
-                    
-                    <input
-                        type="checkbox"
-                        id="email"
-                        value="Invitados por Email"
-                        checked={selectedOptions.includes('Invitados por Email')}
-                        onChange={() => handleOptionChange('Invitados por Email')}
-                    />
-                </div>
-            </div>
+            </section>
         </div>
-    )
-}
+    );
+};
 
 export default CardSurvey;
