@@ -1,0 +1,65 @@
+body{
+    margin: 0;
+    background-color: #DDD5DF;
+    font-family:sans-serif ;
+  }
+  .white__box__survey{
+    display: flex;
+    flex-direction: column;
+    align-items:normal;
+    background-color: white; 
+    width: 45vw;
+    height: 85vh;
+    border-radius:22px ;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    
+  }
+  .items__and__buttons_survey{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    
+    
+    
+  }
+
+  .created__surveys_1 {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none; /* Elimina los círculos */
+  padding: 10px;
+  width: 70%;
+  
+    
+   
+   
+  }
+  .item__survey_1 li{
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none; /* Elimina los círculos */
+    width: 100%;
+    background-color: #dac6dd;
+    border-radius: 5px;
+    padding:15px 6px 15px 6px;
+    box-shadow:1px 1px 4px rgb(81, 80, 80) ;
+   
+
+    
+  }
+  .item__survey_1 li:hover{
+   
+    background-color: rgb(220, 180, 218)
+  }
+
+  button.btn-back{
+    width: 15vw;
+    background-color: rgb(220, 180, 218);
+  }
+
+
+  button.btn-back:hover{
+    width: 17vw;
+    background-color: rgb(230, 135, 225);
+  }

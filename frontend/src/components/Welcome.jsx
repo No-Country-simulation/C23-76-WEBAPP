@@ -2,56 +2,58 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.png";
 import CardSurvey from "./CardSurvey";
+import SurveyClick from "./componentes-juanze/survey_click/survey_click"; // Importa el nuevo componente
 import axios from "axios";
-import './welcome.css';
+import "./welcome.css";
 
 const Welcome = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState(null);
+    const [surveys, setSurveys] = useState([]);
+    const [selectedSurvey, setSelectedSurvey] = useState(null); // Estado para la encuesta seleccionada
 
     useEffect(() => {
-        
-        const userEmail = localStorage.getItem("userEmail"); // Verificar si hay un email en el localStorage
-        const token = localStorage.getItem("token"); // Obtener el token
-
+        const token = localStorage.getItem("token");
         if (!token) {
-            navigate("/login"); // Si no hay token, redirigir al login
+            navigate("/login");
             return;
         }
-        axios.get("https://surveymaker-53d73b4bd329.herokuapp.com/Test/Private", {
-                headers: { Authorization: `Bearer ${token}` }, // Enviar el token
-            })
-            .then((response) => {
-                setData(response.data); // Guardar la info
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+
+        console.log("Token almacenado:", token); // 📌 Verificar si el token existe
+
+        axios.post("https://surveymaker-53d73b4bd329.herokuapp.com/survey/list/private", {
+            withQuestions: true,
+            withOptions: true
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+            console.log("Encuestas recibidas:", response.data);
+            setSurveys(response.data);
+        })
+        .catch((error) => {
+            console.error("Error al obtener encuestas:", error.response ? error.response.data : error.message);
+        });
     }, [navigate]);
-    // Obtener el correo almacenado
-    const userEmail = localStorage.getItem("userEmail");
-    console.log(data);
 
     const handleLogout = () => {
-        localStorage.removeItem("token") // Eliminar el token
-      navigate("/login"); // Redirigir al login
-  };
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
 
     return (
-        <div className="welcome-container">            
+        <div className="welcome-container">
             <aside>
                 <header>
                     <div>
                         <img className="avatar" src={avatar} alt="Avatar" />
                         <h2>Bienvenido/a,</h2>
-                        <h3 className="user-name">{userEmail}</h3>
+                        <h3 className="user-name">{localStorage.getItem("userEmail")}</h3>
                     </div>
                 </header>
                 <nav>
                     <div className="menu">
-                        <button className="btn-menu">Crear nueva encuesta</button>
+                        <button onClick={() => navigate('/create-survey')} className="btn-menu">Crear nueva encuesta</button>
                         <button className="btn-menu">Encuestas activas</button>
-                        <button className="btn-menu">Historial</button>
                     </div>
                     <div className="cnt-btn-logout">
                         <button className="btn-menu btn-logout" onClick={handleLogout}>Cerrar sesión</button>
@@ -60,14 +62,28 @@ const Welcome = () => {
             </aside>
             <main>
                 <div className="cnt-survey">
-                    
-                    <CardSurvey number="1" />
-                    <CardSurvey number="2"/>
-                    <CardSurvey number="3"/>
-                    <CardSurvey number="4"/>
-                    <CardSurvey number="5"/>
-                    <CardSurvey number="6"/>
-                    <CardSurvey number="7"/>
+                    {selectedSurvey ? (
+                        <SurveyClick 
+                            title={selectedSurvey.title} 
+                            questions={selectedSurvey.questions || []}
+                            tiempo={selectedSurvey.expiresAt ? `Expira en ${new Date(selectedSurvey.expiresAt).toLocaleString()}` : "Sin límite"}
+                            onClose={() => setSelectedSurvey(null)} // Permite volver atrás
+                        />
+                    ) : (
+                        surveys.length > 0 ? (
+                            surveys.map((survey) => (
+                                <CardSurvey 
+                                    key={survey.id} 
+                                    title={survey.title} 
+                                    questions={survey.questions || []}
+                                    tiempo={survey.expiresAt ? `Expira en ${new Date(survey.expiresAt).toLocaleString()}` : "Sin límite"}
+                                    onClick={() => setSelectedSurvey(survey)} // Maneja el clic en la card
+                                />
+                            ))
+                        ) : (
+                            <p>No hay encuestas disponibles</p>
+                        )
+                    )}
                 </div>
             </main>
         </div>

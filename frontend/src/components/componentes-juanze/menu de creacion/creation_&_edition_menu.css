@@ -1,0 +1,259 @@
+
+
+  /*-------------------*/
+  /* caja popup blanca */
+  /*-------------------*/
+ 
+  
+  
+  .box-white{
+    background-color:#ffffff ;
+    width: 80vw;
+    height: fit-content;
+    border-radius: 20px;
+  }
+  .main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  
+  }
+  /*-------------------*/
+  /* caja popup blanca */
+  /*-------------------*/
+  
+  /*-------------------*/
+  /* click para crear */
+  /*-------------------*/
+
+  div.items__and__buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .edit__survey__name{
+    all: unset;
+    width: 90%;
+    margin-top: 1vh;
+    margin-left: 4vw;
+    margin-bottom: 1vh;
+    font-size: 25px;
+    border-bottom:2px solid rgb(197, 197, 197);
+    border-radius:5px ;
+  }
+  
+ 
+
+   button.create__new{
+    background-color:rgb(220, 180, 218) ;
+    width: 27vw;
+    border: solid 15px #F3EDF7;
+    border-radius: 16px;
+    transition: all 1s ease;
+    box-shadow:1px 1px 4px rgb(81, 80, 80) ;
+    
+  }
+  .create__new:hover{
+    cursor: pointer;
+    border: solid 15px rgb(220, 180, 218) ;
+    background-color:#F3EDF7;
+    color: gray;
+    
+  }
+  
+  /*-------------------*/
+  /* click para crear */
+  /*-------------------*/
+  
+  /*-------------------*/
+  /*surveys items*/
+  /*-------------------*/
+  
+  ol.created__surveys{
+    display: flex;
+    flex-direction: column;
+    width: 27vw;
+    list-style:none; 
+    gap: 30px;
+  }
+  
+  li.survey-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(220, 180, 218);
+    border-radius: 5px;
+    box-shadow:1px 1px 4px rgb(81, 80, 80) ;  
+    padding:15px 10px 15px ;
+    
+  }
+  .input__title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color: #F3EDF7;
+    padding: 8px;
+    width: 90%;
+    border-radius: 22px;
+    border-bottom: 3px solid rgb(134, 131, 131);
+  }
+
+  .option__input {
+    background-color: #F3EDF7;
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 90%;
+    border-radius: 22px;
+    border-top: 3px solid rgb(134, 131, 131)
+  }
+  
+
+ .add-input{
+  width: 10px;
+  background-color:rgba(118, 98, 117, 0.438) ;
+  border: none;
+  font-size: 24px;
+  text-indent:0 ;
+  cursor: pointer;
+  padding:  10px  15px  ;
+  padding-left: 0;
+  margin-left:10px;
+  margin-right: 10px;  
+  
+  
+}
+
+.add-input:hover{
+  background-color:rgb(118, 98, 117) ;
+  width:20px;
+  height: 50px;
+  
+}
+  button.quit-item {
+    width: 10px;
+    background-color:rgba(118, 98, 117, 0.438) ;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding:  10px  15px  ;
+    padding-left: 0;
+    margin-left:10px;
+    margin-right: 10px;    
+  
+  }
+
+  button.quit-item:hover{
+    background-color:rgb(118, 98, 117) ;
+    width:20px;
+    height: 50px;
+    
+  }
+  /*-------------------*/
+  /*surveys items*/
+  /*-------------------*/
+  
+  
+  /*-------------------*/
+  /*set time*/
+  /*-------------------*/
+  
+  .set__time{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F3EDF7;
+    border-radius: 20px;
+    top: 80%;
+    margin-bottom: 10px;
+    box-shadow:1px 1px 4px rgb(81, 80, 80) ;
+  }
+  .set__time:hover{
+    cursor: pointer;
+  }
+  .watch{
+    flex-grow: 1;
+  }
+  .p__time{
+    flex-grow: 1;
+  }
+  .flecha{
+    flex-grow: 1;
+  }
+  
+  
+  
+  /*-------------------*/
+  /*separador*/
+  /*-------------------*/
+  
+  .separador{
+    background-color: rgb(197, 197, 197);
+    width: 2px;
+    border-radius: 30px;
+    height: 70vh;
+  }
+  
+  input{
+  
+    cursor: pointer;
+  }
+  /*-------------------*/
+  /*visibilidad*/
+  /*-------------------*/
+  .visibilidad{
+    
+    height:fit-content;
+    background-color: #F3EDF7;
+    border-radius:22px; 
+    box-shadow:1px 1px 4px rgb(81, 80, 80) ;
+  }
+  .title__vi{
+    padding:0 0 0 10px;
+    text-decoration: underline;
+    color: rgb(58, 57, 58);
+  }
+  .visi__p{
+    padding:0 0 0 0px;
+   
+  }
+  .visibilidad__list{
+    margin: 0;
+    padding:0 0 0 10px;
+    
+    
+    
+  }
+  
+  .visibilidad__item{
+    display: flex;
+    justify-content: space-between; 
+    border-radius: 5px;
+    width: 27vw;
+    padding:15px 0 15px 0;
+    margin-bottom: 10px;
+    box-shadow: 0px 1px rgb(220, 180, 218); 
+  }
+
+
+  button.todo__listo{
+    background-color:rgb(220, 180, 218) ;
+    width: 50%;
+    margin-left: 25%;
+    box-shadow: 2px 0px 4px black;
+
+  }
+  
+
+ 
+  
+  
+  
+ 
+  
+  
+  
+ 
+  
+  
+  
